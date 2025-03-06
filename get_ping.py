@@ -1,5 +1,4 @@
 from napalm import get_network_driver
-import time
 import json
 
 with open("keys.txt", 'r') as file:
@@ -11,15 +10,12 @@ ping_destination = input("IP Destination: ")
 username = dados["username"]
 password = dados["password"]
 
-timeout_seconds = 30
 
 driver = get_network_driver("ios")
 
 device = driver(hostname=hostname, username=username, password=password)
 
 device.open()
-
-start_time = time.time()
 
 result = device.ping(ping_destination)
 
