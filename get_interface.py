@@ -4,7 +4,7 @@ import json
 with open("keys.txt", 'r') as file:
     dados = json.load(file)
 
-print("GET Device IP Informations")
+print("Device IP Informations")
 hostname = "192.168.56.1" + input("Device IP - 192.168.56.1X: ")
 username = dados["username"]
 password = dados["password"]
@@ -20,6 +20,7 @@ interfaces = device.get_interfaces_ip()
 for interface, details in interfaces.items():
     print(f'Interface: {interface}')
     for key, value in details.items():
-        print(f'{key}: {value}')
+        for ip, subnet in value.items():
+            print(f'{key}: {ip}/{subnet['prefix_length']}')
 
 device.close()
