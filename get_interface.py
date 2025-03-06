@@ -4,6 +4,7 @@ import json
 with open("keys.txt", 'r') as file:
     dados = json.load(file)
 
+print("GET Device IP Informations")
 hostname = "192.168.56.1" + input("Device IP - 192.168.56.1X: ")
 username = dados["username"]
 password = dados["password"]
