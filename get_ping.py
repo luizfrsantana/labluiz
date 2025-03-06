@@ -17,16 +17,14 @@ device = driver(hostname=hostname, username=username, password=password)
 
 device.open()
 
-result = device.ping(ping_destination)
+try:
 
-success = result['success']
-packet_loss = success['packet_loss']
+    ping_result = device.ping(ping_destination)
 
-if packet_loss > 0:
-    print(f"Perda de pacotes: {packet_loss}%")
-else:
-    print("Nenhuma perda de pacotes.")
+    print(ping_result)
 
-print("Ping bem-sucedido!" if packet_loss == 0 else "Ping falhou.")
+except Exception as e:
+
+    print(f"Error during ping operation: {e}") 
 
 device.close()
