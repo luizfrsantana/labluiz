@@ -2,7 +2,7 @@ from napalm import get_network_driver
 import json
 from netmiko import ConnectHandler
 
-with open("keys.txt", 'r') as file:
+with open("data/keys.txt", 'r') as file:
     dados = json.load(file)
 
 print("GET Device IP Informations")

@@ -1,7 +1,7 @@
 from napalm import get_network_driver
 import json
 
-with open("keys.txt", 'r') as file:
+with open("data/keys.txt", 'r') as file:
     dados = json.load(file)
 
 print("Device IP Informations")
