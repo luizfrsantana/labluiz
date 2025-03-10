@@ -14,9 +14,8 @@ driver = get_network_driver('ios')
 
 for device in devices:
     for hostname, data in device.items():
-        interfaces = data["interfaces"]
         config = ""
-        for interface, settings in interfaces.items():
+        for interface, settings in data["interfaces"].items():
 
             if not settings.get("description"):
                 description = "NO CONECTION"
