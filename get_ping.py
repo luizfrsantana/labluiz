@@ -18,11 +18,15 @@ def get_ping(hostname, ping_destination):
 
     try:
         # Execute the ping command on the device to the specified destination
-        ping_result = device.ping(ping_destination)
+        ping_result = device.ping(ping_destination, count = 4)
 
         # Print ping results for each key in the result
         for key, details in ping_result.items():
-            sanitize_ping_data = {"destination":ping_destination, "result": key, "packets_sent": details["probes_sent"], "packets_loss": details["packet_loss"]}
+            if key == "error":
+                sanitize_ping_data = {"destination":ping_destination, "result": key}
+            else:
+                key = "failure" if details["probes_sent"] == details["packet_loss"] else "success"
+                sanitize_ping_data = {"destination":ping_destination, "result": key, "packets_sent": details["probes_sent"], "packets_loss": details["packet_loss"]}
 
     except Exception as e:
         # Handle errors during the ping operation
