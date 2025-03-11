@@ -22,17 +22,18 @@ def get_ping(hostname, ping_destination):
 
         # Print ping results for each key in the result
         for key, details in ping_result.items():
-            print(f'Result: {key} - Packets sent: {details["probes_sent"]} - Packets loss: {details["packet_loss"]} ')
+            sanitize_ping_data = {"destination":ping_destination, "result": key, "packets_sent": details["probes_sent"], "packets_loss": details["packet_loss"]}
 
     except Exception as e:
         # Handle errors during the ping operation
         print(f"Error during ping operation: {e}") 
 
-    # Close the connection to the device
+    # Close the connection to the device and return data
     device.close()
-
+    return sanitize_ping_data
+    
 # Inform the user that the device IP information is being retrieved
 print("GET Device IP Informations")
 hostname = "192.168.56.1" + input("Device IP - 192.168.56.1X: ")
 ping_destination = input("IP Destination: ")
-get_ping(hostname, ping_destination)
+print(get_ping(hostname, ping_destination))
