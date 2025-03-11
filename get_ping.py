@@ -30,7 +30,7 @@ def get_ping(hostname, ping_destination):
 
     except Exception as e:
         # Handle errors during the ping operation
-        print(f"Error during ping operation: {e}") 
+        return {"Error": {e}} 
 
     # Close the connection to the device and return data
     device.close()
