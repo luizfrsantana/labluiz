@@ -1,4 +1,4 @@
-from connect_to_device_cisco import connect_to_device_cisco
+from utils.connect_to_device_cisco import connect_to_device_cisco
 import json
 
 def configure_device_interfaces():

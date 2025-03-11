@@ -1,5 +1,5 @@
 from napalm import get_network_driver
-from load_authentication_data import load_authentication_data
+from utils.load_authentication_data import load_authentication_data
 
 def connect_to_device_cisco(hostname):
     """

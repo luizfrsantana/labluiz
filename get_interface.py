@@ -1,5 +1,5 @@
 
-from connect_to_device_cisco import connect_to_device_cisco
+from utils.connect_to_device_cisco import connect_to_device_cisco
 
 def get_device_interface_info(hostname):
     """
