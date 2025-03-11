@@ -1,33 +1,38 @@
-from napalm import get_network_driver
-import json
-from netmiko import ConnectHandler
+# Import the function to connect to a Cisco device
+from connect_to_device_cisco import connect_to_device_cisco
 
-with open("data/keys.txt", 'r') as file:
-    dados = json.load(file)
+def get_ping(hostname, ping_destination):
+    """
+    Function to perform a ping operation on a Cisco device and retrieve the results.
+    
+    Args:
+        hostname (str): The IP address or hostname of the Cisco device.
+        ping_destination (str): The IP address or hostname to ping from the device.
+    
+    Returns:
+        None: The function prints the ping results and handles exceptions if they occur.
+    """
+    # Establish connection to the Cisco device
+    device = connect_to_device_cisco(hostname)
+    device.open()
 
+    try:
+        # Execute the ping command on the device to the specified destination
+        ping_result = device.ping(ping_destination)
+
+        # Print ping results for each key in the result
+        for key, details in ping_result.items():
+            print(f'Result: {key} - Packets sent: {details["probes_sent"]} - Packets loss: {details["packet_loss"]} ')
+
+    except Exception as e:
+        # Handle errors during the ping operation
+        print(f"Error during ping operation: {e}") 
+
+    # Close the connection to the device
+    device.close()
+
+# Inform the user that the device IP information is being retrieved
 print("GET Device IP Informations")
 hostname = "192.168.56.1" + input("Device IP - 192.168.56.1X: ")
 ping_destination = input("IP Destination: ")
-username = dados["username"]
-password = dados["password"]
-
-
-driver = get_network_driver("ios")
-
-device = driver(hostname=hostname, username=username, password=password)
-device.device = ConnectHandler(device_type='cisco_ios', host=hostname, username=username, password=password, session_log='session.log')
-
-device.open()
-
-try:
-
-    ping_result = device.ping(ping_destination)
-
-    for key, details in ping_result.items():
-        print(f'Result: {key} - Packets sent: {details['probes_sent']} - Packets loss: {details['packet_loss']} ')
-
-except Exception as e:
-
-    print(f"Error during ping operation: {e}") 
-
-device.close()
+get_ping(hostname, ping_destination)
