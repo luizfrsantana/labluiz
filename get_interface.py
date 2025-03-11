@@ -1,5 +1,5 @@
-from napalm import get_network_driver
-import json
+
+from connect_to_device_cisco import connect_to_device_cisco
 
 def get_device_interface_info(hostname):
     """
@@ -11,18 +11,9 @@ def get_device_interface_info(hostname):
     Returns:
         list: A list containing dictionaries with interface information.
     """
-    # Load authentication data
-    with open("data/keys.txt", 'r') as file:
-        dados = json.load(file)
 
-    username = dados["username"]
-    password = dados["password"]
-
-    # Define the driver for the device
-    driver = get_network_driver("ios")
-
-    # Connect to the device
-    device = driver(hostname=hostname, username=username, password=password)
+    # Connect to device Cisco
+    device = connect_to_device_cisco(hostname)
     device.open()
 
     # Get IP information of interfaces and details
